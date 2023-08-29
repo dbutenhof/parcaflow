@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import unittest
+
 import arcaflow_plugin_template_python
 from arcaflow_plugin_sdk import plugin
 
@@ -28,7 +29,7 @@ class HelloWorldTest(unittest.TestCase):
         self.assertEqual("success", output_id)
         self.assertEqual(
             output_data,
-            arcaflow_plugin_template_python.SuccessOutput("Hello, Example Joe!")
+            arcaflow_plugin_template_python.SuccessOutput("Hello, Example Joe!"),
         )
 
 

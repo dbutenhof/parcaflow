@@ -12,14 +12,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
       - name: Build image
-        run: docker-compose build
+        run: buildah build Containerfile.test
       - name: Run plugin
-        run: docker-compose up
+        run: podman pod up
       - name: Extract coverage data
         run: |
-          docker create --name test quay.io/arcalot/arcaflow-plugin-template-python:latest
-          docker cp test:/htmlcov .
-          docker rm test
+          podman create --name test quay.io/arcalot/parcaflow:latest
+          podman cp test:/htmlcov .
+          podman rm test
       - name: Publish coverage report to job summary
         run: |
           pip install html2text

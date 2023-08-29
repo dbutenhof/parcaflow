@@ -1,17 +1,18 @@
 [tool.poetry]
-name = "arcaflow-plugin-template-python"
+name = "parcaflow"
 version = "0.1.0"
 description = ""
 authors = ["Arcalot"]
 license = "Apache-2.0+GPL-2.0-only"
 
 packages = [
-   { include="arcaflow_plugin_template_python.py", from="./arcaflow_plugin_template_python"  },
+   { include="parcaflow.py", from="./parcaflow"  },
 ]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 arcaflow-plugin-sdk = "^0.10.3"
+ifaddr = "^0.2.0"
 
 [tool.poetry.dev-dependencies]
 docformatter = "^1.5.0"

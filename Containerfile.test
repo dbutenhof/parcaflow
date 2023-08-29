@@ -1,0 +1,29 @@
+ARG package=arcaflow_plugin_pbench
+
+# STAGE 1 -- Build module dependencies and run tests
+# The 'poetry' and 'coverage' modules are installed and verson-controlled in the
+# quay.io/arcalot/arcaflow-plugin-baseimage-python-buildbase image to limit drift
+FROM quay.io/pbench/pbench-agent-all-centos-8:main as build
+ARG package
+
+COPY poetry.lock /app/
+COPY pyproject.toml /app/
+
+RUN dnf -y module install python39 && dnf -y install python39 python39-pip
+RUN ln -s /usr/bin/python3.9 /usr/bin/python
+RUN python -m pip install poetry==1.4.2 && python3 -m poetry config virtualenvs.create false
+RUN python -m pip install coverage==7.2.7 && mkdir /htmlcov
+
+# Convert the dependencies from poetry to a static requirements.txt file
+RUN python -m poetry install --without dev --no-root \
+ && python -m poetry export -f requirements.txt --output requirements.txt --without-hashes
+
+COPY ${package}/ /app/${package}
+COPY tests /app/${package}/tests
+
+ENV PYTHONPATH /app/${package}
+WORKDIR /app/${package}
+
+# Run tests and return coverage analysis
+RUN python -m coverage run tests/test_${package}.py \
+ && python -m coverage html -d /htmlcov --omit=/usr/local/*

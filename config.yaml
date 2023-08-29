@@ -1,0 +1,9 @@
+deployer:
+  type: podman
+log:
+  level: debug
+logged_outputs:
+  error:
+   level: debug
+  success:
+   level: debug
