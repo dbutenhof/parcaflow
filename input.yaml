@@ -1,1 +1,7 @@
-{"toolset": "medium", "config": "test"}
+{
+  "toolset": "medium",
+  "config": "test",
+  "relay": "",
+  "server": "https://pbench-staging.app.intlab.redhat.com",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODc3ODk3MzMsInVzZXJfaWQiOiJjMjM1M2QxYi1hZGE4LTQzMTgtYWVjMS05ZDIxOGVkMTQ2OTQiLCJ1c2VybmFtZSI6ImRidXRlbmhvIn0.8IOTkKi6QEUGrLqZwz3do685T5jb3WW5VOeq8El32Xw"
+}

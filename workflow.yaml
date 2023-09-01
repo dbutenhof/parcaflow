@@ -10,37 +10,26 @@ input:
      config:
        type:
          type_id: string
+     relay:
+       type:
+         type_id: string
+     server:
+       type:
+         type_id: string
+     token:
+       type:
+         type_id: string
 
 steps:
   startemup:
    plugin: localhost/parcaflow
-   step: initialize
+   step: main
    input:
     toolset: !expr $.input.toolset
     config: !expr $.input.config
-  start:
-    plugin: localhost/parcaflow
-    step: begin
-    input:
-      name: test iteration
-      number: 1
-      hook: !expr $.steps.startemup.outputs.success.message
-  stop:
-    plugin: localhost/parcaflow
-    step: end
-    input:
-      hook: !expr $.steps.start.outputs.success.message
-  done:
-    plugin: localhost/parcaflow
-    step: finalize
-    input:
-      hook: !expr $.steps.stop.outputs.success.message
-  upload:
-    plugin: localhost/parcaflow
-    step: upload
-    input:
-      server: https://dhcp-231.ctrl.perf-infra.lab.eng.rdu2.redhat.com:8443
-      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODc3ODk3MzMsInVzZXJfaWQiOiJjMjM1M2QxYi1hZGE4LTQzMTgtYWVjMS05ZDIxOGVkMTQ2OTQiLCJ1c2VybmFtZSI6ImRidXRlbmhvIn0.8IOTkKi6QEUGrLqZwz3do685T5jb3WW5VOeq8El32Xw
-      hook: !expr $.steps.done.outputs.success.message
+    server: !expr $.input.server
+    relay: !expr $.input.relay
+    token: !expr $.input.token
+
 output:
   message: !expr $.steps.startemup.outputs.success.message
